@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/> <!--헤더 인클루드-->
+<style>
+    .fieldError {
+        border-color: #fa93f4;
+    }
+</style>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+
+    <!--
+     form이고, action경로로 갈거고
+     th:object={} :타임리프문법 ,form안에서 이 객체를 쓰겠다
+     post방식으로 넘김
+    -->
+    <form role="form" action="/members/new" th:object="${memberForm}" method="post">
+
+        <div class="form-group">
+            <label th:for="name">이름</label>
+            <!--
+
+           1.th:field="*{name} ctrl+space로 이동하면 th:object="${memberForm}의 name나옴 (참고하기때문에)
+
+           2. ${#fields.hasErrors('name')} : name에 에러가 있으면
+              'form-control fieldError' : 4 style속성으로 색깔 걸기
+           -->
+            <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력하세요"
+                   th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
+
+
+
+            <p th:if="${#fields.hasErrors('name')}"
+               th:errors="*{name}">Incorrect date</p>
+            <!--  name필드에 에러메세지 ( 회원이름은 필수입니다) 출력
+             스프링부트랑 타임리프 다 렌더링 되어있어서
+
+             에러메세지 넣으려고 있는 코드-->
+
+       </div>
+        <div clas="form-group">
+            <!--
+            th:field="*{city}" : id ,name을 다 맞춰준다. field:MemberForm
+            id=city , name =city 적어도 되지만 위처럼 간결하게
+            -->
+            <label th:for="city">도시</label>
+            <input type="text" th:field="*{city}" class="form-control" placeholder="도시를 입력하세요">
+        </div>
+        <div class="form-group">
+            <label th:for="street">거리</label>
+            <input type="text" th:field="*{street}" class="form-control" placeholder="거리를 입력하세요">
+        </div>
+        <div class="form-group">
+            <label th:for="zipcode">우편번호</label>
+            <input type="text" th:field="*{zipcode}" class="form-control" placeholder="우편번호를 입력하세요">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <!--sumit을 누르면 /members/new의 메서드가 post로 넘어간다-->
+    </form>
+    <br/>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>

@@ -1,0 +1,24 @@
+spring: #띄어쓰기 제대로.....
+#  datasource: #2칸
+#    url: jdbc:h2:mem:testdb #메모리 모드로 동작
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
+#
+#
+#  jpa: #2칸
+#    hibernate: #4칸
+#        ddl-auto: create #6칸
+#    properties: #4칸
+#        hibernate: #6칸
+#
+#  # show_sql: true #8칸
+#          format_sql: true #8칸
+
+#스프링 부트에서는  3번째줄 url 안 바꿔도 그냥 메모리모드에서 테스트 실행한다.
+
+
+
+logging.level: #없음
+  org.hibernate.SQL: debug #2칸
+  #org.hibernate.type: trace #2

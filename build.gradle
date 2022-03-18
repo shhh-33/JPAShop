@@ -1,0 +1,47 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+
+group = 'jpabook'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+//라이브러리 받겠다
+repositories {
+	mavenCentral()
+}
+
+//의존관계 : 아까 선택한것 들어있다.
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web' //필요한 의존관계 다 댕겨옴
+	implementation  'org.springframework.boot:spring-boot-devtools' //restartedMain으로 시작 : 서버 재시작 안하고 build-recomfile만 해도 html 변경된거 바로 확인 가능
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6' //다른거 버전 안적힌 이유 : 스프링부트가 미리 설정해둠 얜 미리설정되지않음
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.h2database:h2'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// Validation (JSR-303 validation with Hibernate validator) 모듈 추가
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	//JUnit4 추가
+	testImplementation("org.junit.vintage:junit-vintage-engine") {
+		exclude group: "org.hamcrest", module: "hamcrest-core"
+
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
