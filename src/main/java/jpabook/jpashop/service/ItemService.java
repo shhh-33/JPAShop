@@ -30,6 +30,10 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
+    /**
+    상품 수정할때 쓴다.
+     id받아서 수정하려고
+     */
     public Item findOne(Long itemId) {
         return itemRepository.findOne(itemId);
     }
