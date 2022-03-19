@@ -18,7 +18,7 @@ public class ItemRepository {
         if ((item.getId() == null)) {
             em.persist(item); //상품 신규 등록
         } else { //만약에 db에 이미 있는 값이라면 수정
-            em.merge(item);
+            em.merge(item); //모든 값을 다 수정한다. 안건들인값은 null로 수정된다. 그러니 쓰지말것.. 변경감지로 쓸것
         }
     }
 

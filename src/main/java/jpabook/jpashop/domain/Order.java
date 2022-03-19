@@ -121,7 +121,9 @@ public class Order { //주문엔티티
 
     //==비즈니스로직==//
 
-    //주문 취소
+    /**주문 취소
+     *
+     */
     public void cancel() {
         //배송이 끝나면 취소 불가
         if (delivery.getStatus() == DeliveryStatus.COMP) {

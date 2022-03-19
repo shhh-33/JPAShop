@@ -85,6 +85,21 @@ public class ItemController {
     @PostMapping(value = "/items/{itemId}/edit") //post로 받았다.
     public String updateItem(@ModelAttribute("form") BookForm form) { //th:object="${form}" 넘어오게 (이름은 상관없)
 
+        itemService.updateItem(form.getId(),form.getName(),form.getPrice() ,form.getStockQuantity());
+
+        return "redirect:/items";
+
+        /*
+        bookform을 통해 데이터가 날아온다.
+        새로운 book이 아니다 id(식별자)가 세팅되어있다 -> jpa(db)에 다녀온 애 이런것을 준영속객체라고 한다.
+        JPA가 관리를 안한다..그래서 book.set(~) 해도 반영이 안돼
+        그럼 도대체 어떻게 데이터를 변경할 수 있을까
+         */
+
+        //form을 받아와서 book으로 바꿨다 ->form은 웹계층에만 쓸려고
+
+        /*
+        복잡해서 이렇게 안쓴다.
         Book book = new Book();
 
         book.setId(form.getId());
@@ -94,9 +109,9 @@ public class ItemController {
         book.setAuthor(form.getAuthor());
         book.setIsbn(form.getIsbn());
 
-        itemService.saveItem(book);
+        itemService.saveItem(book); //merge로 동작중
+        */
 
-        return "redirect:/items";
     }
 
 

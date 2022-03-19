@@ -72,6 +72,7 @@ public class OrderRepository {
         return query.getResultList();
     }
 
+
     //JPA가 제공하는 표준 동적쿼리 (JPA Criteria)
     public List<Order> findAllByCriteria(OrderSearch orderSearch) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
