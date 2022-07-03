@@ -1,4 +1,4 @@
-# JPAShop
+# JPA_Practice
 ![image](https://user-images.githubusercontent.com/87368059/177031435-d8bc15ca-e7e6-48df-a125-c049407d6f7c.png)
 
  ## 🎈개발 환경
