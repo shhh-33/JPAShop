@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class Member { //엔티티타입
     @Column(name = "member_id") //pk 컬럼명 //엔티티의 식별자
     private Long id;
 
+    //@NotEmpty 여기에 넣으면 api마다 각기 다른 경우 발생..그러니 api스펙에 넣어버리기
     private String name;
 
     @Embedded
