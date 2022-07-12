@@ -25,14 +25,32 @@ public class MemberApiController {
 
     private final MemberService memberService;
 
-    //회원등록
-    //문제발생 : 엔티티를 수정하면 api 스펙이 변해버릴 수 있다. 그렇기 때문에 api 스펙을 위한 별도의 dto 만들어야한다.
+    /*
+     등록 V1: 요청 값으로 Member 엔티티를 직접 받는다.
+     문제발생
+      - 엔티티를 수정하면 api 스펙이 변해버릴 수 있다. 그렇기 때문에  API 요청 스펙에 맞추어 별도의 DTO를 파라미터로 받는다
+
+      - 엔티티에 프레젠테이션 계층을 위한 로직이 추가된다.
+      - 엔티티에 API 검증을 위한 로직이 들어간다. (@NotEmpty 등등)
+      - 실무에서는 회원 엔티티를 위한 API가 다양하게 만들어지는데, 한 엔티티에 각각의 API를 위한 모든 요청 요구사항을 담기는 어렵다
+     */
     @PostMapping("/api/v1/members")       //body에서 온 json 데이터를 매핑해서 member에 다 넣는다
     public CreateMemberResponse saveMemberV1(@RequestBody @Valid Member member) { //Valid : Member 검증 (ex: NotEmpty)
         Long id = memberService.join(member);
         return new CreateMemberResponse(id);
     }
 
+    /*
+
+     등록 V2: 요청 값으로 Member 엔티티 대신에 별도의 DTO를 받는다.
+      -> CreateMemberRequest 를 Member 엔티티 대신에 RequestBody와 매핑한다.
+     <장점>
+    Member엔티티에서 이름명을 바꾼다.. 그럼 오류난다 -> api스펙에서만 수정하면 된다.
+
+    - 엔티티와 프레젠테이션 계층을 위한 로직을 분리할 수 있다.
+    - 엔티티와 API 스펙을 명확하게 분리할 수 있다.
+    - 엔티티가 변해도 API 스펙이 변하지 않는다.
+    */
     @PostMapping("/api/v2/members")
     public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest request) {
         Member member = new Member();
@@ -43,16 +61,12 @@ public class MemberApiController {
         return new CreateMemberResponse(id);
     }
 
-    /*
-    2번 장점
-    Member엔티티에서 이름명을 바꾼다.. 그럼 오류난다 -> api스펙에서만 수정하면 된다.
-     */
 
     //이렇게 dto따로 만들어 버릴것
     //api 스펙 자체가 name만 받게 정의되어있구나를 알 수 있다..
-   @Data
+    @Data
     static class CreateMemberRequest {
-       @NotEmpty //필요한 vaildation넣기
+        @NotEmpty //필요한 vaildation넣기
         private String name;
     }
 
