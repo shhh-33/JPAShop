@@ -3,13 +3,11 @@ package jpabook.jpashop.api;
 
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.service.MemberService;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -59,6 +57,30 @@ public class MemberApiController {
         Long id = memberService.join(member);
 
         return new CreateMemberResponse(id);
+    }
+
+    @PutMapping("/api/v2/members/{id}") //put은 전체업데이트, post는 부분 업데이트
+    public UpdateMemberResponse updateMemberV2( //업데이트용 응답 dto
+                                                @PathVariable("id") Long id,
+                                                @RequestBody @Valid UpdateMemberRequest request) { //업데이트용 요청 dto 별도로 만듬
+
+        memberService.update(id, request.getName()); //수정을 여기서 끝내고(수정, 조회 분리해서 유지보수성 증대)
+
+        Member findMember =memberService.findOne(id);  //수정한거 조회
+
+        return new UpdateMemberResponse(findMember.getId(), findMember.getName());
+    }
+
+    @Data
+    static class UpdateMemberRequest {
+        private String name;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class UpdateMemberResponse {
+        private Long id;
+        private String name;
     }
 
 

@@ -72,4 +72,12 @@ public class MemberService {
         return memberRepository.fineOne(memberId);
     }
 
+
+    //회원 이름 수정 (변경감지)
+    @Transactional
+    public void update(Long id, String name){
+        Member member = memberRepository.fineOne(id);
+        member.setName(name);
+    }
+
 }
