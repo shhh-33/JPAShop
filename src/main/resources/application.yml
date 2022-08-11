@@ -8,7 +8,7 @@ spring: #띄어쓰기 제대로.....
 
   jpa: #2칸
     hibernate: #4칸
-        ddl-auto: none #6칸
+        ddl-auto: create #6칸
     properties: #4칸
         hibernate: #6칸
 
