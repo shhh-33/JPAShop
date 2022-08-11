@@ -1,6 +1,7 @@
 package jpabook.jpashop.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +26,8 @@ public class Member { //엔티티타입
     @Embedded
     private Address address;
 
+    //@JsonIgnore //회원정보를 뿌리고 싶어서 주문 정보 빠진다..(api에서 한거 빼고 싶을때 쓴다.)
+    //하지만 엔티티가 변경되면 API 스펙이 변한다.
     @OneToMany(mappedBy = "member") //하나의 회원, 여러개 상품 주문 : 일대다
     //mappedBy : 연관관계 주인이 아니다. order 테이블에 있는 member필드에 의해 매핑된것
     //읽기전용 : 여기에 값을 넣는다해서 외래키 값이 변경되지 않음
