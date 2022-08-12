@@ -27,6 +27,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web' //필요한 의존관계 다 댕겨옴
 	implementation  'org.springframework.boot:spring-boot-devtools' //restartedMain으로 시작 : 서버 재시작 안하고 build-recomfile만 해도 html 변경된거 바로 확인 가능
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6' //다른거 버전 안적힌 이유 : 스프링부트가 미리 설정해둠 얜 미리설정되지않음
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'

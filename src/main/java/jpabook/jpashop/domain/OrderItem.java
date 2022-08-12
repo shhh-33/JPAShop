@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jpabook.jpashop.domain.item.Item;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,7 @@ public class OrderItem {
     @JoinColumn(name = "item_id") //fk
     private Item item; //주문상품
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id") //fk
     //하나의 order(주문)이 여러개의 orderitem 가질 수 있다.
